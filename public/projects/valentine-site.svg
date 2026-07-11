@@ -1,0 +1,61 @@
+<svg viewBox="0 0 800 350" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="valBg" cx="70%" cy="20%" r="90%">
+      <stop offset="0%" stop-color="#141a26"/>
+      <stop offset="100%" stop-color="#0a0e16"/>
+    </radialGradient>
+    <linearGradient id="valAccent1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6c63ff"/>
+      <stop offset="100%" stop-color="#2dd4bf"/>
+    </linearGradient>
+    <linearGradient id="valAccent2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5a623"/>
+      <stop offset="100%" stop-color="#6c63ff"/>
+    </linearGradient>
+    <pattern id="valGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(231,238,245,0.06)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="800" height="350" fill="url(#valBg)"/>
+  <rect width="800" height="350" fill="url(#valGrid)"/>
+  <circle cx="150" cy="80" r="170" fill="#6c63ff" opacity="0.12"/>
+  <circle cx="680" cy="290" r="150" fill="#2dd4bf" opacity="0.10"/>
+
+  <!-- browser window -->
+  <g transform="translate(210,55)">
+    <rect x="0" y="0" width="380" height="240" rx="18" fill="#111827" stroke="rgba(231,238,245,0.18)" stroke-width="2"/>
+    <rect x="0" y="0" width="380" height="36" rx="18" fill="#141a26"/>
+    <rect x="0" y="18" width="380" height="18" fill="#141a26"/>
+    <circle cx="22" cy="18" r="6" fill="#ff5f57"/>
+    <circle cx="42" cy="18" r="6" fill="#febc2e"/>
+    <circle cx="62" cy="18" r="6" fill="#28c840"/>
+    <rect x="130" y="10" width="120" height="16" rx="8" fill="rgba(231,238,245,0.08)"/>
+
+    <!-- big heart -->
+    <path d="M190 190
+      C150 150 90 120 90 78
+      C90 48 116 30 144 30
+      C164 30 180 42 190 60
+      C200 42 216 30 236 30
+      C264 30 290 48 290 78
+      C290 120 230 150 190 190 Z"
+      fill="url(#valAccent1)"/>
+
+    <!-- ribbon -->
+    <path d="M60 200 Q190 175 320 200" stroke="url(#valAccent2)" stroke-width="6" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- floating hearts + sparkles -->
+  <g fill="url(#valAccent2)" opacity="0.85">
+    <path d="M110 130 C95 118 72 106 72 86 C72 74 82 66 92 66 C100 66 106 70 110 78 C114 70 120 66 128 66 C138 66 148 74 148 86 C148 106 125 118 110 130Z"/>
+  </g>
+  <g fill="url(#valAccent1)" opacity="0.6">
+    <path d="M640 260 C630 252 615 244 615 231 C615 223 622 217 629 217 C635 217 639 220 640 225 C641 220 645 217 651 217 C658 217 665 223 665 231 C665 244 650 252 640 260Z"/>
+  </g>
+  <g stroke="#e7eef5" stroke-width="2" opacity="0.5">
+    <path d="M640 90 L640 106 M632 98 L648 98"/>
+    <path d="M110 260 L110 274 M103 267 L117 267"/>
+    <path d="M700 200 L700 212 M694 206 L706 206"/>
+  </g>
+</svg>

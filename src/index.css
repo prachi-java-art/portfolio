@@ -1,3 +1,443 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body,
+#root {
+  background: #0a0e16;
+  font-family: 'Space Grotesk', sans-serif;
+  color: #e7eef5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: #2dd4bf;
+  color: #0a0e16;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0e16;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #2dd4bf, #6c63ff);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #5eead4, #8b85ff);
+}
+
+.hero-heading {
+  background: linear-gradient(120deg, #2dd4bf 0%, #6c63ff 55%, #f5a623 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.mono {
+  font-family: 'Fira Code', ui-monospace, monospace;
+}
+
+/* ---------- soft dotted texture ---------- */
+.dot-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(231, 238, 245, 0.09) 1.4px, transparent 1.4px);
+  background-size: 26px 26px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 78%);
+}
+
+.noise-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* ---------- aurora wash ---------- */
+.aurora-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(at 20% 15%, rgba(45, 212, 191, 0.16) 0%, transparent 50%),
+    radial-gradient(at 80% 12%, rgba(108, 99, 255, 0.16) 0%, transparent 55%),
+    radial-gradient(at 85% 80%, rgba(245, 166, 35, 0.10) 0%, transparent 55%),
+    radial-gradient(at 15% 85%, rgba(108, 99, 255, 0.12) 0%, transparent 55%);
+  filter: blur(20px);
+}
+
+/* ---------- floating morphing blobs ---------- */
+.blob-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+.blob {
+  position: absolute;
+  filter: blur(2px);
+  opacity: 0.5;
+  animation: blob-morph 9s ease-in-out infinite, blob-float 11s ease-in-out infinite;
+}
+.blob-teal {
+  width: 220px;
+  height: 220px;
+  top: 8%;
+  left: 4%;
+  background: radial-gradient(circle at 32% 30%, rgba(255, 255, 255, 0.2), transparent 55%),
+    linear-gradient(135deg, #2dd4bf, #14b8a6);
+  box-shadow: 0 30px 70px -25px rgba(45, 212, 191, 0.4);
+}
+.blob-indigo {
+  width: 260px;
+  height: 260px;
+  bottom: 10%;
+  right: 6%;
+  background: radial-gradient(circle at 32% 30%, rgba(255, 255, 255, 0.16), transparent 55%),
+    linear-gradient(135deg, #6c63ff, #4338ca);
+  box-shadow: 0 30px 70px -25px rgba(108, 99, 255, 0.4);
+  animation-delay: 1.2s, 2s;
+}
+.blob-amber {
+  width: 140px;
+  height: 140px;
+  top: 55%;
+  left: 42%;
+  background: radial-gradient(circle at 32% 30%, rgba(255, 255, 255, 0.16), transparent 55%),
+    linear-gradient(135deg, #f5a623, #d97706);
+  box-shadow: 0 24px 55px -20px rgba(245, 166, 35, 0.35);
+  opacity: 0.32;
+  animation-delay: 0.6s, 3.2s;
+}
+@keyframes blob-morph {
+  0%, 100% { border-radius: 42% 58% 65% 35% / 45% 40% 60% 55%; }
+  33% { border-radius: 60% 40% 45% 55% / 55% 65% 35% 45%; }
+  66% { border-radius: 48% 52% 38% 62% / 62% 45% 55% 38%; }
+}
+@keyframes blob-float {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(14px, -22px) rotate(8deg); }
+}
+
+/* ---------- glass panel (card) ---------- */
+.glass-panel {
+  background: linear-gradient(180deg, rgba(20, 26, 38, 0.85), rgba(10, 14, 22, 0.9));
+  border: 1px solid rgba(231, 238, 245, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 26px;
+  transition: border-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+}
+.glass-panel:hover {
+  border-color: rgba(45, 212, 191, 0.35);
+  transform: translateY(-4px);
+  box-shadow: 0 24px 60px -22px rgba(108, 99, 255, 0.3);
+}
+
+/* ---------- gradient border glow on hover ---------- */
+.glow-border {
+  position: relative;
+}
+.glow-border::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(45, 212, 191, 0.5), rgba(108, 99, 255, 0.3), rgba(245, 166, 35, 0.4));
+  filter: blur(18px);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  z-index: -1;
+}
+.glow-border:hover::after {
+  opacity: 0.65;
+}
+
+/* ---------- pill nav ---------- */
+.pill-nav {
+  background: rgba(16, 22, 35, 0.6);
+  border: 1px solid rgba(231, 238, 245, 0.1);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 18px 50px -18px rgba(0, 0, 0, 0.6);
+}
+.pill-link {
+  position: relative;
+  transition: color 0.3s ease;
+}
+.pill-link::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  right: 50%;
+  bottom: -6px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #2dd4bf, #6c63ff);
+  transition: left 0.35s cubic-bezier(0.22, 1, 0.36, 1), right 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pill-link:hover::after {
+  left: 0;
+  right: 0;
+}
+
+/* ---------- role rotator badge ---------- */
+.role-badge {
+  border: 1px solid rgba(45, 212, 191, 0.35);
+  background: rgba(45, 212, 191, 0.08);
+}
+
+/* ---------- hero orbit-ring centerpiece ---------- */
+.orbit-wrap {
+  perspective: 1100px;
+}
+.orbit-tilt {
+  position: relative;
+  width: 340px;
+  height: 340px;
+  transform: rotateX(58deg);
+  transform-style: preserve-3d;
+}
+@media (max-width: 767px) {
+  .orbit-tilt { width: 240px; height: 240px; }
+}
+.orbit-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 74px;
+  height: 74px;
+  margin: -37px 0 0 -37px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.5), transparent 55%),
+    linear-gradient(135deg, #2dd4bf, #6c63ff);
+  box-shadow: 0 0 60px 10px rgba(45, 212, 191, 0.5), 0 0 100px 30px rgba(108, 99, 255, 0.25);
+}
+.orbit-path {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  border: 1px solid rgba(231, 238, 245, 0.16);
+  transform: translate(-50%, -50%);
+}
+.orbit-spinner {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+}
+.orbit-badge-wrap {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.orbit-badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, rgba(20, 26, 38, 0.95), rgba(10, 14, 22, 0.95));
+  border: 1px solid rgba(231, 238, 245, 0.18);
+  box-shadow: 0 10px 26px -10px rgba(0, 0, 0, 0.7);
+}
+.orbit-badge img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+.orbit-r1 { width: 150px; height: 150px; }
+.orbit-r2 { width: 240px; height: 240px; }
+.orbit-r3 { width: 320px; height: 320px; }
+.orbit-spin-cw { animation: orbit-rotate 10s linear infinite; }
+.orbit-spin-ccw { animation: orbit-rotate-rev 10s linear infinite; }
+.orbit-spin-cw-slow { animation: orbit-rotate 16s linear infinite; }
+.orbit-spin-ccw-slow { animation: orbit-rotate-rev 16s linear infinite; }
+.orbit-spin-cw-slower { animation: orbit-rotate 24s linear infinite; }
+.orbit-spin-ccw-slower { animation: orbit-rotate-rev 24s linear infinite; }
+.orbit-tilt:hover .orbit-spinner,
+.orbit-tilt:hover .orbit-badge-wrap > .orbit-badge {
+  animation-play-state: paused;
+}
+@keyframes orbit-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes orbit-rotate-rev {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+/* ---------- skills 3D carousel ---------- */
+.carousel-stage {
+  perspective: 1500px;
+  padding: 40px 0;
+}
+.carousel-track {
+  position: relative;
+  transform-style: preserve-3d;
+  margin: 0 auto;
+  animation: carousel-spin 34s linear infinite;
+}
+.carousel-track:hover {
+  animation-play-state: paused;
+}
+.carousel-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(20, 26, 38, 0.9), rgba(10, 14, 22, 0.85));
+  border: 1px solid rgba(231, 238, 245, 0.14);
+  box-shadow: 0 20px 45px -20px rgba(0, 0, 0, 0.7);
+  white-space: nowrap;
+  backface-visibility: hidden;
+}
+@keyframes carousel-spin {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+
+/* ---------- bento project card ---------- */
+.bento-media {
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  border: 1px solid rgba(231, 238, 245, 0.12);
+}
+.bento-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.bento-media:hover img {
+  transform: scale(1.05);
+}
+
+/* ---------- zigzag milestone row ---------- */
+.milestone-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(231, 238, 245, 0.18), transparent);
+}
+.milestone-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #0a0e16;
+  border: 2px solid #2dd4bf;
+  box-shadow: 0 0 0 5px rgba(45, 212, 191, 0.12);
+}
+
+/* ---------- spotlight: cursor-tracking radial gradient ---------- */
+:root {
+  --mx: 50vw;
+  --my: 30vh;
+}
+.spotlight {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(
+    600px circle at var(--mx) var(--my),
+    rgba(45, 212, 191, 0.10),
+    rgba(108, 99, 255, 0.05) 40%,
+    transparent 70%
+  );
+  transition: background-position 0.1s linear;
+  mix-blend-mode: screen;
+}
+
+/* ---------- footer cta panel ---------- */
+.cta-panel {
+  position: relative;
+  border-radius: 40px;
+  background: linear-gradient(180deg, rgba(20, 26, 38, 0.85), rgba(10, 14, 22, 0.92));
+  border: 1px solid rgba(231, 238, 245, 0.1);
+  overflow: hidden;
+}
+
+/* ---------- tilt-card depth helper ---------- */
+.tilt-depth-1 { transform: translateZ(40px); }
+.tilt-depth-2 { transform: translateZ(60px); }
+
+/* ---------- responsive tweaks ---------- */
+@media (max-width: 640px) {
+  .dot-grid { background-size: 20px 20px; }
+  .blob-teal { width: 140px; height: 140px; opacity: 0.35; }
+  .blob-indigo { width: 160px; height: 160px; opacity: 0.3; }
+  .blob-amber { width: 90px; height: 90px; opacity: 0.22; }
+
+  .carousel-stage { padding: 16px 0; }
+  .carousel-card { padding: 10px 14px; border-radius: 14px; --radius: 110px !important; }
+
+  body { padding-bottom: 84px; }
+}
+
+/* ---------- touch device tweaks ---------- */
+@media (hover: none) and (pointer: coarse) {
+  .glass-panel:active { transform: scale(0.98); }
+  .carousel-track { animation-play-state: running; }
+}
+
+/* respect user preference: kill heavy motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .blob, .orbit-spinner, .orbit-badge, .carousel-track {
+    animation: none !important;
+  }
+}
+
+/* Lenis html class so scroll-snap doesn't conflict */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
